@@ -15,6 +15,7 @@ import java.util.List;
 public class StartupListAdapter extends BaseAdapter {
     public static final int INDEX_AUDIO_PLAYBACK = 0;
     public static final int INDEX_VIDEO_PLAYBACK = 1;
+    public static final int INDEX_HOTBODY_PLAYBACK = 2;
 
     private List<String> examplePages;
     private LayoutInflater inflater;
@@ -23,6 +24,7 @@ public class StartupListAdapter extends BaseAdapter {
         examplePages = new ArrayList<>();
         examplePages.add(INDEX_AUDIO_PLAYBACK, "Audio Playback");
         examplePages.add(INDEX_VIDEO_PLAYBACK, "Video Playback");
+        examplePages.add(INDEX_HOTBODY_PLAYBACK, "Hotbody Playback");
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -50,7 +52,7 @@ public class StartupListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.simple_text_item, null);
 
             holder = new ViewHolder();
-            holder.text = (TextView) convertView.findViewById(R.id.simple_text_text_view);
+            holder.text = convertView.findViewById(R.id.simple_text_text_view);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

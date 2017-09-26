@@ -33,6 +33,9 @@ public class StartupActivity extends AppCompatActivity implements AdapterView.On
                 showVideoSelectionActivity();
                 break;
 
+            case StartupListAdapter.INDEX_HOTBODY_PLAYBACK:
+                showHotBodyActivity();
+                break;
             default:
         }
     }
@@ -44,6 +47,11 @@ public class StartupActivity extends AppCompatActivity implements AdapterView.On
 
     private void showAudioSelectionActivity() {
         Intent intent = new Intent(this, AudioSelectionActivity.class);
+        startActivity(intent);
+    }
+
+    private void showHotBodyActivity() {
+        Intent intent = new Intent(this, HotBodyActivity.class);
         startActivity(intent);
     }
 }
