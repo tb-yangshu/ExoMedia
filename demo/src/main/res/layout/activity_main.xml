@@ -12,5 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:useDefaultControls="true"
+        android:background="@android:color/black"
         />
 </FrameLayout>
