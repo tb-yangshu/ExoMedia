@@ -49,8 +49,10 @@
             android:exported="false">
         </service>
 
-        <activity android:name=".ui.activity.HotBodyActivity">
-        </activity>
+        <activity
+            android:name=".hotbody.HotBodyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.devbrackets.android.exomediademo.ui.activity;
+package com.devbrackets.android.exomediademo.hotbody;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +41,10 @@ public class HotBodyActivity extends AppCompatActivity implements OnPreparedList
     private void initVideoView() {
         videoView = findViewById(R.id.video_view);
 
+        updateVideoViewSize();
+    }
+
+    private void updateVideoViewSize() {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int heightPx = (int) (displayMetrics.widthPixels * 9 * 1.0f / 16);
         ViewGroup.LayoutParams layoutParams = videoView.getLayoutParams();

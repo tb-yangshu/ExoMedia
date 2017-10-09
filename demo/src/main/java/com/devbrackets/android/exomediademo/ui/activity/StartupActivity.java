@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.devbrackets.android.exomediademo.R;
 import com.devbrackets.android.exomediademo.adapter.StartupListAdapter;
+import com.devbrackets.android.exomediademo.hotbody.HotBodyActivity;
 
 public class StartupActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
