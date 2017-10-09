@@ -14,7 +14,7 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.devbrackets.android.exomediademo.R;
 
-public class HotBodyActivity extends AppCompatActivity implements OnPreparedListener, OrientationManager.OrientationChangeListener {
+public class TestActivity extends AppCompatActivity implements OnPreparedListener, OrientationManager.OrientationChangeListener {
 
     private final String commonVideo = "http://source.hotbody.cn/TwcO7c85-5VEK-2pk4-X3kZ-Rayz5bB0nVdd.mp4";
     // 宽度 / 高度 > 16 : 9

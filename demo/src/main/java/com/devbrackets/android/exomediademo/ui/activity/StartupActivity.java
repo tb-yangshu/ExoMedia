@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.devbrackets.android.exomediademo.R;
 import com.devbrackets.android.exomediademo.adapter.StartupListAdapter;
-import com.devbrackets.android.exomediademo.hotbody.HotBodyActivity;
+import com.devbrackets.android.exomediademo.hotbody.TestActivity;
 
 public class StartupActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -52,7 +52,7 @@ public class StartupActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void showHotBodyActivity() {
-        Intent intent = new Intent(this, HotBodyActivity.class);
+        Intent intent = new Intent(this, TestActivity.class);
         startActivity(intent);
     }
 }

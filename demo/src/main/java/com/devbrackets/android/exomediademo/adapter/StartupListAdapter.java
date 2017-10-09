@@ -24,7 +24,7 @@ public class StartupListAdapter extends BaseAdapter {
         examplePages = new ArrayList<>();
         examplePages.add(INDEX_AUDIO_PLAYBACK, "Audio Playback");
         examplePages.add(INDEX_VIDEO_PLAYBACK, "Video Playback");
-        examplePages.add(INDEX_HOTBODY_PLAYBACK, "Hotbody Playback");
+        examplePages.add(INDEX_HOTBODY_PLAYBACK, "Test Playback");
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

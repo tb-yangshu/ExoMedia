@@ -50,7 +50,7 @@
         </service>
 
         <activity
-            android:name=".hotbody.HotBodyActivity"
+            android:name=".hotbody.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
