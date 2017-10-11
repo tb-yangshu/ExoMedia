@@ -3,7 +3,6 @@ package com.devbrackets.android.exomediademo.hotbody;
 import android.content.Context;
 import android.support.annotation.IntRange;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -34,6 +33,8 @@ public class TestControllers extends VideoControls {
 
     public TestControllers(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        setHideDelay(5000);
     }
 
     @Override
@@ -85,7 +86,6 @@ public class TestControllers extends VideoControls {
 
     @Override
     protected void animateVisibility(boolean toVisible) {
-        Log.d("tianbin", "animateVisibility");
         if (isVisible == toVisible) {
             return;
         }
@@ -173,15 +173,16 @@ public class TestControllers extends VideoControls {
     }
 
     public void showCompleteView() {
-        Log.d("tianbin", "show complete view");
         controlsContainer.setVisibility(GONE);
         mBtnReplay.setVisibility(VISIBLE);
     }
 
     // 视频播放完后不再弹出controller
-    public void updatePlaybackState(boolean isPlaying, boolean isShow) {
+    public void updatePlaybackStateAndHideController(boolean isPlaying) {
         updatePlayPauseImage(isPlaying);
         progressPollRepeater.start();
+
+        animateVisibility(false);
     }
 
     /**

@@ -12,11 +12,11 @@ import com.devbrackets.android.exomedia.ui.widget.VideoView;
 public class TestVideoView extends VideoView {
 
     public TestVideoView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TestVideoView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TestVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -30,7 +30,7 @@ public class TestVideoView extends VideoView {
         setKeepScreenOn(false);
 
         if (videoControls != null && videoControls instanceof TestControllers) {
-            ((TestControllers) videoControls).updatePlaybackState(false, false);
+            ((TestControllers) videoControls).updatePlaybackStateAndHideController(false);
         }
     }
 
