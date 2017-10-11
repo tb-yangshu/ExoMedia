@@ -11,18 +11,7 @@
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:useDefaultControls="true"
+        app:useDefaultControls="false"
         android:background="@android:color/black"
-        />
-
-    <Button
-        android:id="@+id/btn_fullscreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fullscreen"
-        android:textSize="20sp"
-        android:padding="8dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>

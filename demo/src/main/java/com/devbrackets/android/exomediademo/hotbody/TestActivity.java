@@ -25,6 +25,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     private VideoView videoView;
     private int mOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     private OrientationManager orientationManager;
+    private TestControllers mTestControllers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +33,6 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
         setContentView(R.layout.activity_main);
 
         setupVideoView();
-
-        findViewById(R.id.btn_fullscreen).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                view.setVisibility(View.GONE);
-            }
-        });
 
         orientationManager = OrientationManager.getInstance(this);
         orientationManager.setOrientationChangedListener(this);
@@ -59,6 +52,15 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     private void initVideoView() {
         videoView = findViewById(R.id.video_view);
 
+        mTestControllers = new TestControllers(this);
+        mTestControllers.setFullscreenListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                view.setVisibility(View.GONE);
+            }
+        });
+        videoView.setControls(mTestControllers);
         updateVideoViewSize();
     }
 
@@ -98,7 +100,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
 
             NavBarUtils.hideNavigationBar(this, getWindow().getDecorView());
-            updateFullscreenVisibility(View.GONE);
+            updateFullscreenVisibility(View.INVISIBLE);
         }
         videoView.setLayoutParams(layoutParams);
     }
@@ -114,7 +116,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     }
 
     private void updateFullscreenVisibility(int visibility) {
-        findViewById(R.id.btn_fullscreen).setVisibility(visibility);
+        mTestControllers.updateFullscreenVisibility(visibility);
     }
 
     @Override
