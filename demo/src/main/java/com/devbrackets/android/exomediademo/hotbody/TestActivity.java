@@ -10,11 +10,11 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.devbrackets.android.exomedia.listener.OnCompletionListener;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
-import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.devbrackets.android.exomediademo.R;
 
-public class TestActivity extends AppCompatActivity implements OnPreparedListener, OrientationManager.OrientationChangeListener {
+public class TestActivity extends AppCompatActivity implements OnPreparedListener, OrientationManager.OrientationChangeListener, OnCompletionListener {
 
     private final String commonVideo = "http://source.hotbody.cn/TwcO7c85-5VEK-2pk4-X3kZ-Rayz5bB0nVdd.mp4";
     // 宽度 / 高度 > 16 : 9
@@ -22,7 +22,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     // 宽度 / 高度 < 16 : 9
     private final String heightVideo = "http://source.hotbody.cn/SHFAgTuF-zvLx-kBlX-oOXu-1suTVltJ34yg.mp4";
 
-    private VideoView videoView;
+    private TestVideoView videoView;
     private int mOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     private OrientationManager orientationManager;
     private TestControllers mTestControllers;
@@ -44,7 +44,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
         initVideoView();
 
         videoView.setOnPreparedListener(this);
-
+        videoView.setOnCompletionListener(this);
         //For now we just picked an arbitrary item to play
         videoView.setVideoURI(Uri.parse(widthVideo));
     }
@@ -58,6 +58,13 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
             public void onClick(View view) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 view.setVisibility(View.GONE);
+            }
+        });
+        mTestControllers.setReplayClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setVisibility(View.GONE);
+                videoView.replay();
             }
         });
         videoView.setControls(mTestControllers);
@@ -125,5 +132,11 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
                 Settings.System.ACCELEROMETER_ROTATION, 0) == 1) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
+    }
+
+    @Override
+    public void onCompletion() {
+        mTestControllers.showCompleteView();
+        videoView.unregisterTouchListener();
     }
 }

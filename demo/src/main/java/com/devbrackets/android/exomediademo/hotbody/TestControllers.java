@@ -3,6 +3,7 @@ package com.devbrackets.android.exomediademo.hotbody;
 import android.content.Context;
 import android.support.annotation.IntRange;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -18,9 +19,10 @@ import com.devbrackets.android.exomediademo.R;
  */
 public class TestControllers extends VideoControls {
 
-    private SeekBar seekBar;
+    private SeekBar mSeekBar;
     private boolean userInteracting;
     private View mBtnFullscreen;
+    private View mBtnReplay;
 
     public TestControllers(Context context) {
         this(context, null);
@@ -37,22 +39,22 @@ public class TestControllers extends VideoControls {
     @Override
     public void setPosition(@IntRange(from = 0) long position) {
         currentTimeTextView.setText(TimeFormatUtil.formatMs(position));
-        seekBar.setProgress((int) position);
+        mSeekBar.setProgress((int) position);
     }
 
     @Override
     public void setDuration(@IntRange(from = 0) long duration) {
-        if (duration != seekBar.getMax()) {
+        if (duration != mSeekBar.getMax()) {
             endTimeTextView.setText(TimeFormatUtil.formatMs(duration));
-            seekBar.setMax((int) duration);
+            mSeekBar.setMax((int) duration);
         }
     }
 
     @Override
     public void updateProgress(@IntRange(from = 0) long position, @IntRange(from = 0) long duration, @IntRange(from = 0, to = 100) int bufferPercent) {
         if (!userInteracting) {
-            seekBar.setSecondaryProgress((int) (seekBar.getMax() * ((float) bufferPercent / 100)));
-            seekBar.setProgress((int) position);
+            mSeekBar.setSecondaryProgress((int) (mSeekBar.getMax() * ((float) bufferPercent / 100)));
+            mSeekBar.setProgress((int) position);
             currentTimeTextView.setText(TimeFormatUtil.formatMs(position));
         }
     }
@@ -83,6 +85,7 @@ public class TestControllers extends VideoControls {
 
     @Override
     protected void animateVisibility(boolean toVisible) {
+        Log.d("tianbin", "animateVisibility");
         if (isVisible == toVisible) {
             return;
         }
@@ -101,7 +104,6 @@ public class TestControllers extends VideoControls {
 
     @Override
     protected void updateTextContainerVisibility() {
-
     }
 
     @Override
@@ -124,8 +126,9 @@ public class TestControllers extends VideoControls {
     @Override
     protected void retrieveViews() {
         super.retrieveViews();
-        seekBar = (SeekBar) findViewById(R.id.exomedia_controls_video_seek);
+        mSeekBar = findViewById(R.id.exomedia_controls_video_seek);
         mBtnFullscreen = findViewById(R.id.exomedia_controls_fullscreen_btn);
+        mBtnReplay = findViewById(R.id.btn_replay);
     }
 
     public void setFullscreenListener(OnClickListener listener) {
@@ -136,10 +139,26 @@ public class TestControllers extends VideoControls {
         mBtnFullscreen.setVisibility(visibility);
     }
 
+    public void setReplayClickListener(OnClickListener listener) {
+        mBtnReplay.setOnClickListener(listener);
+    }
+
     @Override
     protected void registerListeners() {
         super.registerListeners();
-        seekBar.setOnSeekBarChangeListener(new SeekBarChanged());
+        mSeekBar.setOnSeekBarChangeListener(new SeekBarChanged());
+    }
+
+    public void showCompleteView() {
+        Log.d("tianbin", "show complete view");
+        controlsContainer.setVisibility(GONE);
+        mBtnReplay.setVisibility(VISIBLE);
+    }
+
+    // 视频播放完后不再弹出controller
+    public void updatePlaybackState(boolean isPlaying, boolean isShow) {
+        updatePlayPauseImage(isPlaying);
+        progressPollRepeater.start();
     }
 
     /**

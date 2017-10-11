@@ -77,6 +77,16 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/btn_replay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:text="replay"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
 
     <!--- unused views -->
     <ImageButton

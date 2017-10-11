@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.devbrackets.android.exomediademo.hotbody.TestActivity">
 
-    <com.devbrackets.android.exomedia.ui.widget.VideoView
+    <com.devbrackets.android.exomediademo.hotbody.TestVideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
