@@ -108,12 +108,35 @@ public class TestControllers extends VideoControls {
 
     @Override
     public void showLoading(boolean initialLoad) {
+        if (isLoading) {
+            return;
+        }
 
+        isLoading = true;
+        loadingProgressBar.setVisibility(View.VISIBLE);
+
+        if (initialLoad) {
+            controlsContainer.setVisibility(View.GONE);
+        } else {
+            playPauseButton.setEnabled(false);
+        }
+
+        show();
     }
 
     @Override
     public void finishLoading() {
+        if (!isLoading) {
+            return;
+        }
 
+        isLoading = false;
+        loadingProgressBar.setVisibility(View.GONE);
+        controlsContainer.setVisibility(View.VISIBLE);
+
+        playPauseButton.setEnabled(true);
+
+        updatePlaybackState(videoView != null && videoView.isPlaying());
     }
 
     @Override
