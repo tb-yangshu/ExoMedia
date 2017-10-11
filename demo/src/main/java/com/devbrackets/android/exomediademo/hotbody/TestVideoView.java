@@ -1,6 +1,7 @@
 package com.devbrackets.android.exomediademo.hotbody;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
@@ -44,6 +45,15 @@ public class TestVideoView extends VideoView {
         }
 
         setVideoURI(videoUri);
+
+        TouchListener listener = new TouchListener(getContext());
+        setOnTouchListener(listener);
+    }
+
+    public void playAnotherVideo(String commonVideo) {
+        reset();
+
+        setVideoURI(Uri.parse(commonVideo));
 
         TouchListener listener = new TouchListener(getContext());
         setOnTouchListener(listener);

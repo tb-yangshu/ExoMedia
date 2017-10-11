@@ -14,4 +14,16 @@
         app:useDefaultControls="false"
         android:background="@android:color/black"
         />
+
+    <Button
+        android:id="@+id/btn_play_another_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play another video"
+        android:textSize="12sp"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        />
 </RelativeLayout>

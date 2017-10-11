@@ -182,7 +182,11 @@ public class TestControllers extends VideoControls {
         updatePlayPauseImage(isPlaying);
         progressPollRepeater.start();
 
-        animateVisibility(false);
+        hide();
+    }
+
+    public void hideReplay() {
+        mBtnReplay.setVisibility(GONE);
     }
 
     /**

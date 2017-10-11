@@ -23,6 +23,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     private final String heightVideo = "http://source.hotbody.cn/SHFAgTuF-zvLx-kBlX-oOXu-1suTVltJ34yg.mp4";
 
     private TestVideoView videoView;
+    private View mBtnPlayAnotherVideo;
     private int mOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     private OrientationManager orientationManager;
     private TestControllers mTestControllers;
@@ -37,6 +38,23 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
         orientationManager = OrientationManager.getInstance(this);
         orientationManager.setOrientationChangedListener(this);
         orientationManager.enable();
+
+        mBtnPlayAnotherVideo = findViewById(R.id.btn_play_another_video);
+        mBtnPlayAnotherVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTestControllers.hideReplay();
+                videoView.playAnotherVideo(commonVideo);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (orientationManager != null) {
+            orientationManager.setOrientationChangedListener(null);
+        }
     }
 
     private void setupVideoView() {
@@ -138,5 +156,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     public void onCompletion() {
         mTestControllers.showCompleteView();
         videoView.unregisterTouchListener();
+
+        mBtnPlayAnotherVideo.setVisibility(View.VISIBLE);
     }
 }
