@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_activityShortDur">300</integer>
+    <integer name="config_activityDefaultDur">320</integer>
+
+    <integer name="feed_timeline_text_content_max_lines">5</integer>
+
+    <integer name="circular_reveal_duration">500</integer>
+</resources>

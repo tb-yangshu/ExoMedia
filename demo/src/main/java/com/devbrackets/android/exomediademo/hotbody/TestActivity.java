@@ -1,5 +1,6 @@
 package com.devbrackets.android.exomediademo.hotbody;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.devbrackets.android.exomedia.listener.OnCompletionListener;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
@@ -27,6 +29,8 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
     private int mOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     private OrientationManager orientationManager;
     private TestControllers mTestControllers;
+    private long mCurrentPosition;
+    private FrameLayout mVideoViewContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
 
         setupVideoView();
 
-        orientationManager = OrientationManager.getInstance(this);
+        orientationManager = new OrientationManager(getApplicationContext());
         orientationManager.setOrientationChangedListener(this);
         orientationManager.enable();
 
@@ -47,6 +51,49 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
                 videoView.playAnotherVideo(commonVideo);
             }
         });
+
+        findViewById(R.id.btn_start_new_video_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TestActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mVideoViewContainer = findViewById(R.id.fl_video_view);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        videoView = new TestVideoView(this);
+        videoView.setBackgroundResource(android.R.color.black);
+        mVideoViewContainer.addView(videoView);
+        updateVideoViewSize();
+
+        videoView.setControls(mTestControllers);
+        videoView.setVideoURI(Uri.parse(widthVideo));
+        videoView.setOnPreparedListener(new OnPreparedListener() {
+            @Override
+            public void onPrepared() {
+                videoView.seekTo(mCurrentPosition);
+                // 不需要调用 stop 视频不会自动开始
+                //videoView.stopPlayback();
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mCurrentPosition = videoView.getCurrentPosition();
+
+        videoView.removeView(mTestControllers);
+        videoView.release();
+
+        mVideoViewContainer.removeView(videoView);
     }
 
     @Override
@@ -54,6 +101,12 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
         super.onDestroy();
         if (orientationManager != null) {
             orientationManager.setOrientationChangedListener(null);
+            orientationManager.release();
+        }
+
+        if (videoView != null) {
+            videoView.release();
+            mVideoViewContainer.removeView(videoView);
         }
     }
 
@@ -158,5 +211,11 @@ public class TestActivity extends AppCompatActivity implements OnPreparedListene
         videoView.unregisterTouchListener();
 
         mBtnPlayAnotherVideo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_scroll_close_enter, R.anim.activity_scroll_close_exit);
     }
 }

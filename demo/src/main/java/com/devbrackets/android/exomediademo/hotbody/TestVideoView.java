@@ -44,7 +44,7 @@ public class TestVideoView extends VideoView {
             videoControls.updatePlaybackState(false);
         }
 
-        setVideoURI(videoUri);
+        restart();
 
         TouchListener listener = new TouchListener(getContext());
         setOnTouchListener(listener);

@@ -7,13 +7,19 @@
     android:layout_height="match_parent"
     tools:context="com.devbrackets.android.exomediademo.hotbody.TestActivity">
 
-    <com.devbrackets.android.exomediademo.hotbody.TestVideoView
-        android:id="@+id/video_view"
+    <FrameLayout
+        android:id="@+id/fl_video_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:useDefaultControls="false"
-        android:background="@android:color/black"
-        />
+        android:layout_height="wrap_content">
+
+        <com.devbrackets.android.exomediademo.hotbody.TestVideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:useDefaultControls="false"
+            android:background="@android:color/black"
+            />
+    </FrameLayout>
 
     <Button
         android:id="@+id/btn_play_another_video"
@@ -25,5 +31,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/btn_start_new_video_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start new video page"
+        android:textSize="12sp"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>

@@ -4,45 +4,31 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.view.OrientationEventListener;
 
+import java.lang.ref.WeakReference;
+
 /**
  * OrientationManager
  * Created by tianbin on 2017/7/5.
  */
 public class OrientationManager extends OrientationEventListener {
 
-    private static OrientationManager instance;
     private int previousAngle;
     private int previousOrientation;
-    private Context context;
+    private WeakReference<Context> mContextRef;
     private OrientationChangeListener orientationChangeListener;
 
-    private OrientationManager(Context context) {
+    public OrientationManager(Context context) {
         super(context);
-        this.context = context;
-    }
 
-    public static OrientationManager getInstance(Context context) {
-        if (instance == null) {
-            instance = new OrientationManager(context);
-        }
-        return instance;
+        mContextRef = new WeakReference<>(context);
     }
-
-    public int getOrientation() {
-        return previousOrientation;
-    }
-
-    public void setOrientation(int orientation) {
-        this.previousOrientation = orientation;
-    }
-
 
     @Override
     public void onOrientationChanged(int orientation) {
         if (orientation == -1)
             return;
         if (previousOrientation == 0) {
-            previousOrientation = context.getResources().getConfiguration().orientation;
+            previousOrientation = mContextRef.get().getResources().getConfiguration().orientation;
             if (orientationChangeListener != null) {
                 orientationChangeListener.onOrientationChanged(previousOrientation);
             }
@@ -73,5 +59,9 @@ public class OrientationManager extends OrientationEventListener {
 
     public interface OrientationChangeListener {
         void onOrientationChanged(int newOrientation);
+    }
+
+    public void release() {
+        mContextRef.clear();
     }
 }

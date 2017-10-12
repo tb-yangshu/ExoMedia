@@ -5,4 +5,16 @@
         <item name="colorAccent">#FF607D8B</item>
     </style>
 
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>
+    </style>
+
+    <style name="Animation"/>
+
+    <style name="Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_scroll_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_scroll_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_scroll_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_scroll_close_exit</item>
+    </style>
 </resources>
